@@ -1,6 +1,7 @@
 package com.jotacode.apigym.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Entity
@@ -10,10 +11,13 @@ public class Empleado extends Persona {
 
     @Column(name = "rol", length = 50)
     @Getter @Setter
-    private String rol;
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
+
 
     @OneToOne
     @JoinColumn(name = "id_cuenta")
+    @Getter @Setter
     private Cuenta cuenta;
 
 }

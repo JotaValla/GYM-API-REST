@@ -45,6 +45,10 @@ public  class Persona {
     @Past(message = "Fecha de nacimiento debe ser una fecha pasada")
     private LocalDate fechaNacimiento;
 
+    @Column(name = "activo")
+    @NotNull(message = "Activo es requerido")
+    private Boolean activo = true;
+
     @Embedded
     private Direccion direccion;
 }

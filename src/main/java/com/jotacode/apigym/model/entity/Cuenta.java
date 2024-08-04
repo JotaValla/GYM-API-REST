@@ -9,10 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 @Table(
-        name = "cuenta",
+        name = "cuentas",
         uniqueConstraints = @UniqueConstraint(
                 name = "username_unique",
                 columnNames = "username"
@@ -42,5 +43,9 @@ public class Cuenta {
             message = "Password debe contener al menos un número, una letra mayúscula, una letra minúscula y un carácter especial"
     )
     private String password;
+
+    @Column(name = "activo")
+    @NotNull(message = "Activo es requerido")
+    private Boolean activo = true;
 
 }
