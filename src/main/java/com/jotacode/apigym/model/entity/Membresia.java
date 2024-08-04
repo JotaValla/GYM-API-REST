@@ -1,16 +1,17 @@
 package com.jotacode.apigym.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "membresias")
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Membresia {
 
@@ -28,13 +29,22 @@ public class Membresia {
     @NotNull(message = "Precio de membresia es requerido")
     private float precio;
 
-    @Column(name = "duracion")
-    @NotNull(message = "Duración de membresia es requerida")
-    private int duracion;
+    @Column(name = "fecha_creacion", nullable = false)
+    @NotNull(message = "Fecha de creación es requerida")
+    private LocalDate fechaCreacion;
 
-    // Relación con Cliente
-    @OneToOne(mappedBy = "membresia", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @Column(name = "fecha_expiracion", nullable = false)
+    @NotNull(message = "Fecha de expiración es requerida")
+    private LocalDate fechaExpiracion;
+
+    @Column(name = "estado_membresia", nullable = false)
+    @NotNull(message = "Estado de membresia es requerido")
+    private Boolean estadoMembresia = true;
+
+    @OneToOne(mappedBy = "membresia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @Getter @Setter
     private Cliente cliente;
 
-    // Getters y setters
+
 }

@@ -50,5 +50,6 @@ public  class Persona {
     private Boolean activo = true;
 
     @Embedded
+    @NotNull(message = "Direccion es requerida")
     private Direccion direccion;
 }

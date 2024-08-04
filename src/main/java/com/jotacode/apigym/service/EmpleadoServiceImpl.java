@@ -29,13 +29,20 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Override
     public Empleado saveEmpleado(Empleado empleado) throws EmpleadoException {
-        // Validar que la cedula existe
+        // Validar que la cédula exista
         if (empleado.getCedula() == null || empleado.getCedula().isEmpty()) {
-            throw new EmpleadoException("La cedula del empleado es requerida");
+            throw new EmpleadoException("La cédula del empleado es requerida");
         }
 
-        // Validar que la cuenta existe y no está asignada a otro empleado
-        if (empleado.getCuenta() != null) {
+        // Validar que la cédula no esté ya registrada
+        if (empleadoRepository.findById(empleado.getCedula()).isPresent()) {
+            throw new EmpleadoException("El empleado con cédula " + empleado.getCedula() + " ya existe");
+        }
+
+        // Validar que la cuenta exista y no esté asignada a otro empleado
+        if (empleado.getCuenta() == null) {
+            throw new EmpleadoException("La cuenta del empleado es requerida");
+        } else {
             Cuenta cuenta = cuentaRepository.findById(empleado.getCuenta().getIdCuenta())
                     .orElseThrow(() -> new EmpleadoException("Cuenta con ID: " + empleado.getCuenta().getIdCuenta() + " no encontrada"));
 

@@ -35,7 +35,7 @@ public class EmpleadoController {
     }
 
     //Actualizar un empleado por id
-    @PostMapping("/actualizarEmpleado/{id}")
+    @PutMapping("/actualizarEmpleado/{id}")
     public ResponseEntity<Empleado> updateEmpleado(@RequestBody Empleado empleado, @PathVariable String id) throws EmpleadoException {
         return ResponseEntity.ok(empleadoService.updateEmpleado(empleado, id));
     }

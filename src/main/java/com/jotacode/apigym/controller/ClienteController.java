@@ -1,9 +1,12 @@
 package com.jotacode.apigym.controller;
 
+import com.jotacode.apigym.error.ClienteException;
+import com.jotacode.apigym.error.MembresiaException;
 import com.jotacode.apigym.model.entity.Cliente;
 import com.jotacode.apigym.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,32 +19,33 @@ public class ClienteController {
 
     //Obtener todos los clientes
     @GetMapping("/clientes")
-    public List<Cliente> getClientes(){
-        return clienteService.findAllClientes();
+    public ResponseEntity<List<Cliente>> getClientes(){
+        return ResponseEntity.ok(clienteService.findAllClientes());
     }
 
     //Postear un cliente
     @PostMapping("/crearCliente")
-    public Cliente saveCliente(@Valid @RequestBody Cliente cliente){
-        return clienteService.saveCliente(cliente);
+    public ResponseEntity<Cliente> saveCliente(@Valid @RequestBody Cliente cliente) throws MembresiaException, ClienteException {
+        return ResponseEntity.ok(clienteService.saveCliente(cliente));
     }
 
     //Obtener un cliente por id
     @GetMapping("/cliente/{id}")
-    public Cliente getClienteById(@PathVariable String id){
-        return clienteService.findClienteById(id);
+    public ResponseEntity<Cliente> getClienteById(@PathVariable String id) throws ClienteException {
+        return ResponseEntity.ok(clienteService.findClienteById(id));
     }
 
     //Actualizar un cliente por id
-    @PostMapping("/actualizarCliente/{id}")
-    public Cliente updateCliente(@RequestBody Cliente cliente, @PathVariable String id){
-        return clienteService.updateCliente(cliente, id);
+    @PutMapping("/actualizarCliente/{id}")
+    public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cliente, @PathVariable String id) throws ClienteException {
+        return ResponseEntity.ok(clienteService.updateCliente(cliente, id));
     }
 
     //Eliminar un cliente por id
     @DeleteMapping("/eliminarCliente/{id}")
-    public void deleteClienteById(@PathVariable String id){
+    public ResponseEntity<Void> deleteClienteById(@PathVariable String id) throws ClienteException {
         clienteService.deleteCliente(id);
+        return ResponseEntity.noContent().build();
     }
 
 
