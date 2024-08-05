@@ -1,6 +1,9 @@
 package com.jotacode.apigym.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,8 +15,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "entrenamientos")
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idEntrenamiento")
 public class Entrenamiento {
 
     @Id
@@ -37,8 +42,6 @@ public class Entrenamiento {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_entrenador")
-    @JsonBackReference
     private Entrenador entrenador;
 
-    // Getters y setters
 }

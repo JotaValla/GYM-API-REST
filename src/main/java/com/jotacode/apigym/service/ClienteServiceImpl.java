@@ -2,6 +2,7 @@ package com.jotacode.apigym.service;
 
 import com.jotacode.apigym.error.ClienteException;
 import com.jotacode.apigym.error.MembresiaException;
+import com.jotacode.apigym.error.dto.ClienteMembresiaDTO;
 import com.jotacode.apigym.model.data.ClienteRepository;
 import com.jotacode.apigym.model.data.MembresiaRepository;
 import com.jotacode.apigym.model.entity.Cliente;
@@ -129,5 +130,10 @@ public class ClienteServiceImpl implements ClienteService {
         membresia.setEstadoMembresia(false);
         membresiaRepository.save(membresia);
 
+    }
+
+    @Override
+    public List<ClienteMembresiaDTO> getClienteMembresiaDetails() {
+        return clienteRepository.findClienteMembresiaDetails();
     }
 }

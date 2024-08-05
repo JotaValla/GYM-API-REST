@@ -2,6 +2,7 @@ package com.jotacode.apigym.controller;
 
 import com.jotacode.apigym.error.ClienteException;
 import com.jotacode.apigym.error.MembresiaException;
+import com.jotacode.apigym.error.dto.ClienteMembresiaDTO;
 import com.jotacode.apigym.model.entity.Cliente;
 import com.jotacode.apigym.service.ClienteService;
 import jakarta.validation.Valid;
@@ -46,6 +47,12 @@ public class ClienteController {
     public ResponseEntity<Void> deleteClienteById(@PathVariable String id) throws ClienteException {
         clienteService.deleteCliente(id);
         return ResponseEntity.noContent().build();
+    }
+
+    //Obtener los clientes con su membresia
+    @GetMapping("/clientesMembresia")
+    public ResponseEntity<List<ClienteMembresiaDTO>> getClientesMembresia(){
+        return ResponseEntity.ok(clienteService.getClienteMembresiaDetails());
     }
 
 

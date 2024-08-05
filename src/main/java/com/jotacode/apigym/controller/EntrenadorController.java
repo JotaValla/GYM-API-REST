@@ -1,8 +1,11 @@
 package com.jotacode.apigym.controller;
 
+import com.jotacode.apigym.error.EntrenadorException;
 import com.jotacode.apigym.model.entity.Entrenador;
 import com.jotacode.apigym.service.EntrenadorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,32 +18,33 @@ public class EntrenadorController {
 
     //Obtener todos los entrenadores
     @GetMapping("/entrenadores")
-    public List<Entrenador> getEntrenadores(){
-        return entrenadorService.findAllEntrenadores();
+    public ResponseEntity<List<Entrenador>> getEntrenadores(){
+        return ResponseEntity.ok(entrenadorService.findAllEntrenadores());
     }
 
     //Postear un entrenador
     @PostMapping("/crearEntrenador")
-    public Entrenador saveEntrenador(@RequestBody Entrenador entrenador){
-        return entrenadorService.saveEntrenador(entrenador);
+    public ResponseEntity<Entrenador> saveEntrenador(@Valid @RequestBody Entrenador entrenador) throws EntrenadorException {
+        return ResponseEntity.ok(entrenadorService.saveEntrenador(entrenador));
     }
 
     //Obtener un entrenador por id
     @GetMapping("/entrenador/{id}")
-    public Entrenador getEntrenadorById(@PathVariable String id){
-        return entrenadorService.findEntrenadorById(id);
+    public ResponseEntity<Entrenador> getEntrenadorById(@PathVariable String id) throws EntrenadorException {
+        return ResponseEntity.ok(entrenadorService.findEntrenadorById(id));
     }
 
     //Actualizar un entrenador por id
-    @PostMapping("/actualizarEntrenador/{id}")
-    public Entrenador updateEntrenador(@RequestBody Entrenador entrenador, @PathVariable String id){
-        return entrenadorService.updateEntrenador(entrenador, id);
+    @PutMapping("/actualizarEntrenador/{id}")
+    public ResponseEntity<Entrenador> updateEntrenador(@RequestBody Entrenador entrenador, @PathVariable String id) throws EntrenadorException {
+        return ResponseEntity.ok(entrenadorService.updateEntrenador(entrenador, id));
     }
 
     //Eliminar un entrenador por id
     @DeleteMapping("/eliminarEntrenador/{id}")
-    public void deleteEntrenadorById(@PathVariable String id){
+    public ResponseEntity<Void> deleteEntrenadorById(@PathVariable String id) throws EntrenadorException {
         entrenadorService.deleteEntrenador(id);
+        return ResponseEntity.ok().build();
     }
 
 }
