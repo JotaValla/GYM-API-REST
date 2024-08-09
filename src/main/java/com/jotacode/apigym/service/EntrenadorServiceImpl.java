@@ -38,12 +38,6 @@ public class EntrenadorServiceImpl implements EntrenadorService {
         if (entrenador.getDireccion().getCiudad() == null || "".equalsIgnoreCase(entrenador.getDireccion().getCiudad())) {
             throw new EntrenadorException("La ciudad es requerida");
         }
-        if (entrenador.getDireccion().getCallePrincipal() == null || "".equalsIgnoreCase(entrenador.getDireccion().getCallePrincipal())) {
-            throw new EntrenadorException("La calle principal es requerida");
-        }
-        if (entrenador.getDireccion().getCalleSecundaria() == null || "".equalsIgnoreCase(entrenador.getDireccion().getCalleSecundaria())) {
-            throw new EntrenadorException("La calle secundaria es requerida");
-        }
         //Especialidad
         if (entrenador.getEspecialidad() == null || "".equalsIgnoreCase(entrenador.getEspecialidad())) {
             throw new EntrenadorException("La especialidad es requerida");

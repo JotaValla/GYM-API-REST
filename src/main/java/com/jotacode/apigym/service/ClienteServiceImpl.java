@@ -40,12 +40,7 @@ public class ClienteServiceImpl implements ClienteService {
         if (cliente.getDireccion().getCiudad() == null || "".equalsIgnoreCase(cliente.getDireccion().getCiudad())) {
             throw new ClienteException("La ciudad es requerida");
         }
-        if (cliente.getDireccion().getCallePrincipal() == null || "".equalsIgnoreCase(cliente.getDireccion().getCallePrincipal())) {
-            throw new ClienteException("La calle principal es requerida");
-        }
-        if (cliente.getDireccion().getCalleSecundaria() == null || "".equalsIgnoreCase(cliente.getDireccion().getCalleSecundaria())) {
-            throw new ClienteException("La calle secundaria es requerida");
-        }
+
 
         //Validar que deba al cliente asignarle una membresia
         if (cliente.getMembresia() == null) {
